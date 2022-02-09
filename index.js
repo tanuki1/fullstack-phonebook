@@ -44,7 +44,7 @@ app.use(morgan(function (tokens, req, res) {
     JSON.stringify(req.body)
   ].join(' ')
 }))
-  
+
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
     response.json(persons)
@@ -68,7 +68,6 @@ app.get('/api/persons/:id', (request, response, next) => {
       }
     })
     .catch(error => {
-      console.log(error => next)
       next(error)
     })
 })
@@ -80,7 +79,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
     })
     .catch(error => next(error))
 })
-  
+
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
@@ -89,10 +88,11 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number
   })
 
-  person.save().then(savedPerson => {
-    response.json(savedPerson)
-  })
-  .catch(error => next(error))
+  person.save()
+    .then(savedPerson => {
+      response.json(savedPerson)
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -103,7 +103,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     number: body.number,
   }
 
-  Person.findByIdAndUpdate(request.params.id, person, {new: true})
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
@@ -117,7 +117,7 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint)
 
 app.use(errorHandler)
-  
+
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

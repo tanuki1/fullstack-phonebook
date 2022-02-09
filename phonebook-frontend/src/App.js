@@ -23,7 +23,9 @@ const App = () => {
     setFilteredPersons(filtered)
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => updateFilteredPersons(), [newFilter])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => updateFilteredPersons(), [persons])
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const App = () => {
             setNotification(`Updated ${nameObject.name}`)
               setTimeout(() => {
                 setNotification(null)
-              }, 5000)   
+              }, 5000)
             })
       .catch(error => {
         setErrorMessage(`Information of ${nameObject.name} has already been removed from server`)
@@ -64,7 +66,7 @@ const App = () => {
           setErrorMessage(null)
         }, 5000)
       })
-    }    
+    }
     } else {
       personService
         .create(nameObject)
@@ -90,11 +92,11 @@ const App = () => {
 
   const handleNameChange = (event) =>
     setNewName(event.target.value)
-  
+
   const handleNumberChange = (event) =>
     setNewNumber(event.target.value)
-  
-  const handleFilterChange = (event) => 
+
+  const handleFilterChange = (event) =>
     setNewFilter(event.target.value)
 
   const handleClick = (id) => {
@@ -116,7 +118,7 @@ const App = () => {
             setNotification(`Deleted ${person.name}`)
             setTimeout(() => {
               setNotification(null)
-            }, 5000)   
+            }, 5000)
           })
       })
       .catch(error => {
@@ -124,7 +126,7 @@ const App = () => {
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
-      })    
+      })
     }
   }
 
@@ -139,12 +141,12 @@ const App = () => {
       <h2>
         Add a new
       </h2>
-      <PersonForm 
-        addName={addName} 
-        newName={newName} 
-        handleNameChange={handleNameChange} 
-        newNumber={newNumber} 
-        handleNumberChange={handleNumberChange} 
+      <PersonForm
+        addName={addName}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
       />
       <h2>
         Numbers
