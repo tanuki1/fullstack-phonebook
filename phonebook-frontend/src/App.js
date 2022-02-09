@@ -53,7 +53,7 @@ const App = () => {
           .update(person.id, changedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
-            setNotification(`Deleted ${nameObject.name}`)
+            setNotification(`Updated ${nameObject.name}`)
               setTimeout(() => {
                 setNotification(null)
               }, 5000)   
@@ -71,11 +71,18 @@ const App = () => {
         .then(returnedPersons => {
           setPersons(persons.concat(returnedPersons))
           setNewName('')
+          setNotification(`Added ${nameObject.name}`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
-      setNotification(`Added ${nameObject.name}`)
-        setTimeout(() => {
-          setNotification(null)
-        }, 5000)
+        .catch(error => {
+          setErrorMessage(error.response.data.error)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          console.log(error.response.data)
+        })
     }
     setNewName('')
     setNewNumber('')
